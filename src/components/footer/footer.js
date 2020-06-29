@@ -3,7 +3,7 @@ import './footer.scss';
 
 const Footer = () => {
 return (
-  <p>  &copy; 2020 Code Fellows</p>
+  <footer>  &copy; 2020 Code Fellows</footer>
 );
 };
 
