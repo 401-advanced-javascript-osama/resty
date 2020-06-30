@@ -1,6 +1,5 @@
 import React from 'react';
 import './form.scss';
-
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -10,21 +9,23 @@ class Form extends React.Component {
       request: {}
     };
   }
-
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     if (this.state.url && this.state.methode) {
-      let request = {
-        url: this.state.url,
-        method: this.state.methode,
-      };
-      let url = '';
-      let methode = '';
-      this.setState({ request, url, methode });
-      e.target.reset();
-
+        try {
+          const raw = await fetch(`${this.state.url}`);
+          const data = await raw.json();
+          let results = {
+            Headers : raw.headers,
+            Response : data
+          }
+          this.props.handler(results);
+        } catch (e) {
+          console.log(e);
+        }
     }
   };
+
   handleChangeUrl = (e) => {
     const url = e.target.value;
     this.setState({ url })
@@ -54,10 +55,6 @@ class Form extends React.Component {
             <label>DELETE</label>
           </label>
         </form>
-        <div className='result'>
-          <span className="method">{this.state.request.method}</span>
-          <span className="url">{this.state.request.url}</span>
-        </div>
       </main>
     );
   }
