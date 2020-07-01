@@ -15,9 +15,13 @@ class Form extends React.Component {
         try {
           const raw = await fetch(`${this.state.url}`);
           const data = await raw.json();
+          let head ;
+          raw.headers.forEach(value =>{
+            head = { 'Content-Type': value }
+          })          
           let results = {
-            Headers : raw.headers,
-            Response : data
+            Headers: head,
+            Response: data
           }
           this.props.handler(results);
         } catch (e) {
