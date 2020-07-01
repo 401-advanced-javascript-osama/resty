@@ -35,7 +35,7 @@
   "bugs": {
     "url": "https://github.com/401-advanced-javascript-osama/resty/issues"
   },
-  "homepage": "https://osamamousa204.github.io/resty",
+  "homepage": "/",
   "browserslist": {
     "production": [
       ">0.2%",
