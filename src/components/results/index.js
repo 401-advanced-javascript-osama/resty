@@ -9,14 +9,14 @@ function Result(props) {
     <>
     {/* <ReactJson src={props.result} theme="monokai" /> */}
     {/* <img src="https://i.pinimg.com/originals/72/f1/a4/72f1a425e3ea3505929a30b8adabefb8.gif" className={`loading-${props.loading}`}/> */}
-    {/* <If condition={!props.loading}> */}
-          {/* <Then> */}
+    <If condition={!props.loading}>
+          <Then>
           <ReactJson id= "output" src={props.result}  /> 
-          {/* </Then> */}
-          {/* <Else>
+          </Then>
+          <Else>
           <img src="https://i.pinimg.com/originals/72/f1/a4/72f1a425e3ea3505929a30b8adabefb8.gif" />
-          </Else> */}
-        {/* </If> */}
+          </Else>
+        </If>
         {/* <div className={`loading-${!props.loading}`}  id="output">
             <ReactJson src={props.result} />
         </div> */}

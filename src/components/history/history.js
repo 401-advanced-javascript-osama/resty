@@ -7,7 +7,7 @@ import './history.scss';
 const history = (props) => {
     let get = getStorage();
     const handleClick = e =>{
-        // console.log('ddddddd',get[e.target.id].method, get[e.target.id].url ,get[e.target.id].body);
+        console.log('ddddddd',get ,get[e.target.id].method, get[e.target.id].url ,get[e.target.id].body);
         props.fillFormHandler(get[e.target.id].method, get[e.target.id].url ,get[e.target.id].body)
     }
     if(get && get.length > 0){

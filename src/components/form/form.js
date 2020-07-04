@@ -6,25 +6,33 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      method: '',
-      url: '',
+      method : '',
+      url : '',
       body : {},
       request: {}
     };
   }
   handleSubmit = async (e) => {
     // console.log('dddddddddd', this.props.fiilForm);
-    console.log('hhhhh', this.state.url);
+    // console.log('hhhhh', this.state.url);
     
     e.preventDefault();
     this.props.toggleLoading();
-    console.log(this.state.url , this.state.methode);
-    if (this.state.url && this.state.methode) {  
+    console.log(this.state.url);
+    console.log(this.props.fiilForm.url);
+    let url = this.state.url || this.props.fiilForm.url
+    // console.log('sssssssss' , url);
+    
+    let method = this.state.methode || this.props.fiilForm.method
+    // console.log('mmmmmmmmmm' , method);
+
+    let body =  this.state.body || this.props.fiilForm.body
+    if (url && method) {  
       
-      switch (this.state.methode) {
+      switch (method) {
         case 'get':
           try {
-            let raw = await fetch(this.state.url);
+            let raw = await fetch(url);
             let data = await raw.json();
             let head;
             raw.headers.forEach(value => {
@@ -36,27 +44,27 @@ class Form extends React.Component {
             }
             this.props.handler(results);
             this.props.toggleLoading();
-            this.props.setHistory(this.state.methode,this.state.url,this.state.body);
+            this.props.setHistory(method,url,body);
           } catch (e) {
             console.log(e);
           }
           break;
         case 'post':
         case 'put':
-          if (this.state.body) {
-            fetch(this.state.url, {
-              method: `${this.state.methode}`,
+          if (body) {
+            fetch(url, {
+              method: `${method}`,
               mode: 'cors',
               headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
               },
-              body: this.state.body
+              body: body
             })
               .then(data => data.json()).then(results => {
-               this.props.handler(results);
-            this.props.toggleLoading();
-            this.props.setHistory(this.state.methode,this.state.url,this.state.body);
+                this.props.handler(results);
+                this.props.toggleLoading();
+            this.props.setHistory(method,url,body);
 
               })
           } else {
@@ -64,8 +72,8 @@ class Form extends React.Component {
           }
           break;
         case 'delete':
-          fetch(this.state.url, {
-            method: `${this.state.methode}`,
+          fetch(url, {
+            method: `${method}`,
             mode: 'cors',
             headers: {
               'Content-Type': 'application/json',
@@ -75,7 +83,7 @@ class Form extends React.Component {
             .then(() => {
               this.props.handler({results:'Item Deleted ...'});
             this.props.toggleLoading();
-            this.props.setHistory(this.state.methode,this.state.url,this.state.body);
+            this.props.setHistory(method,url,body);
 
             })
       }
@@ -109,7 +117,7 @@ class Form extends React.Component {
           <form onSubmit={this.handleSubmit}>
           <label className="url">
             <span>URL:</span>
-            <input type="text" id="url" onChange={this.handleChangeUrl}   value={this.props.fiilForm.url} />
+            <input type="text" id="url" onChange={this.handleChangeUrl}   defaultValue={this.props.fiilForm.url} />
             <input id="submit" type="submit" value ="GO!"/>
           </label>
           <label className="method">
