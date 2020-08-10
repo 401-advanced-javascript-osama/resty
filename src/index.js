@@ -9,9 +9,9 @@ class Main extends React.Component {
   render() {
     return (
       <React.StrictMode>
-        <Header/>
+        {/* <Header/> */}
         <App />
-        <Footer/>
+        {/* <Footer/> */}
       </React.StrictMode>
     );
   }
